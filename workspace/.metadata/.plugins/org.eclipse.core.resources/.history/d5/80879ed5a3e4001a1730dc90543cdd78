@@ -1,0 +1,8 @@
+package com.tiremgmt.membersvc.serviceImpl;
+
+public class Snippet {
+	public static void main(String[] args) {
+		encodedPassword
+	}
+}
+

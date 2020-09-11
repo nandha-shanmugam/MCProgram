@@ -1,0 +1,18 @@
+package com.tiremgmt.test;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(name="api/sample/")
+public class TestController {
+
+	@GetMapping("test/getName")
+	public ResponseEntity<String> getWelcome() {
+		System.out.print("get name in test controller");
+		return new ResponseEntity<>("Hello Nandha",HttpStatus.OK);
+	}
+}

@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.tiremgmt.apigateway.filter;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class PreFilter {
+
+}

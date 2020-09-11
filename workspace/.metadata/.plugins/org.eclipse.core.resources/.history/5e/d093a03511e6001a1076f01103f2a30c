@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.tiremgmt.apigateway;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class ZuulLoggingFilter {
+
+}

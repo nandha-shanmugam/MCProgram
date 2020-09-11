@@ -1,0 +1,86 @@
+package com.tiremgmt.membersvc.serviceImpl;
+
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.modelmapper.ModelMapper;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.tiremgmt.tiremgmtcommon.dto.MemberDTO;
+import com.tiremgmt.tiremgmtcommon.entity.Member;
+import com.tiremgmt.tiremgmtcommon.repo.MemberRepo;
+
+@RunWith(SpringRunner.class)
+public class MemberServiceImplTest {
+
+	@InjectMocks
+	MemberServiceImpl mockMemberServiceImpl;
+	
+	@Mock
+	MemberRepo memberRepo;
+	
+	@Mock
+	private ModelMapper modelMapper;
+	
+	Member member;
+	MemberDTO memberDTO;
+	
+	@Before
+	public void setUp() {
+		member = new Member(new Long(1),"Nandha","Erode","TN","India","nandha@cts.com","ALKJA0987F","9876789876","21-08-1990","Nandha",null,"Nandha",null,new ArrayList<>(),null);
+		memberDTO = new MemberDTO(new Long(1),"Nandha","Erode","TN","India","nandha@cts.com","ALKJA0987F","9876789876","21-08-1990","Nandha",null,"Nandha",null,new ArrayList<>());
+	}
+	
+	@Test
+	public void getMemberByIdTest() {
+		when(memberRepo.findById(new Long(1))).thenReturn(Optional.of(member));
+		when(modelMapper.map(member,MemberDTO.class)).thenReturn(memberDTO);
+		MemberDTO memberDTO = mockMemberServiceImpl.getMemberById(new Long(1));
+		assertNotNull(memberDTO);
+		
+	}
+	
+	@Test(expected = ResponseStatusException.class)
+	public void getMemberByIdTestInvalidInput() {
+		 mockMemberServiceImpl.getMemberById(null);
+		
+	}
+	
+	@Test(expected = ResponseStatusException.class)
+	public void getMemberByIdTestNoResult() {
+		when(memberRepo.findById(new Long(16))).thenReturn(Optional.ofNullable(null));
+		 mockMemberServiceImpl.getMemberById(new Long(16));
+		
+	}
+	
+	@Test
+	public void getMemberByNameTest() {
+		when(memberRepo.findByUsername("Nandha")).thenReturn(Optional.of(member));
+		when(modelMapper.map(member,MemberDTO.class)).thenReturn(memberDTO);
+		MemberDTO memberDTO = mockMemberServiceImpl.getMemberByUsername("Nandha");
+		assertNotNull(memberDTO);
+		
+	}
+	
+	@Test(expected = ResponseStatusException.class)
+	public void getMemberByUsernameTestInvalidInput() {
+		 mockMemberServiceImpl.getMemberByUsername(null);
+		
+	}
+	
+	@Test(expected = ResponseStatusException.class)
+	public void getMemberByUsernameTestNoResult() {
+		when(memberRepo.findByUsername("Raja")).thenReturn(Optional.ofNullable(null));
+		 mockMemberServiceImpl.getMemberByUsername("Raja");
+		
+	}
+}

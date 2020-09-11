@@ -1,0 +1,5 @@
+package com.tiremgmt.vehiclepartsordersvc.service;
+
+public interface MemberServcieProxy {
+
+}

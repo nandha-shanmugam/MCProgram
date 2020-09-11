@@ -1,0 +1,175 @@
+/**
+ * 
+ */
+package com.tiremgmt.vehiclepartsordersvc.serviceImpl;
+
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.google.common.reflect.TypeToken;
+import com.tiremgmt.tiremgmtcommon.entity.Member;
+import com.tiremgmt.tiremgmtcommon.entity.Orders;
+import com.tiremgmt.tiremgmtcommon.repo.OrdersRepo;
+import com.tiremgmt.tiremgmtcommon.utils.HelperUtils;
+import com.tiremgmt.vehiclepartsordersvc.dto.MemberDTO;
+import com.tiremgmt.vehiclepartsordersvc.dto.OrdersDTO;
+import com.tiremgmt.vehiclepartsordersvc.service.MemberServiceProxy;
+import com.tiremgmt.vehiclepartsordersvc.service.OrderService;
+import com.tiremgmt.vehiclepartsordersvc.utils.Constants;
+
+import io.micrometer.core.instrument.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+@Component
+@Slf4j
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private MemberServiceProxy memberServiceProxy;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Autowired
+	private OrdersRepo ordersRepo;
+	
+	@Value("${tiremgmt.membersvc.fetch-member-by-name}")
+	private String userByNameMemberUrl;
+
+	@Override
+	public String saveOrder(OrdersDTO ordersDTO,String authorization) {
+		if (ordersDTO == null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_ORDER_DETAILS);
+		MemberDTO memberDTO = getMemberByUsername(ordersDTO.getUsername(),authorization);
+		Orders orders = modelMapper.map(ordersDTO, Orders.class);
+		setOrdersCreatedInfo(orders);
+		String orderNumber;
+		try {
+			orderNumber=generateOrderNumber();
+			orders.setOrderNumber(orderNumber);
+			orders.setMember(modelMapper.map(memberDTO, Member.class));
+			ordersRepo.save(orders);
+		} catch (DataIntegrityViolationException exception) {
+			log.error("DataIntegrityViolationException on save orders : {}", exception);
+			throw new ResponseStatusException(HttpStatus.NOT_MODIFIED,
+					"DataIntegrityViolationException on on save orders.");
+		} catch (Exception exception) {
+			log.error("Exception on save orders {} ", exception);
+			throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Exception on save order.");
+		}
+		log.info("Order saved successfully with order number : {}",orderNumber);
+		return Constants.SUCCESSFUL_ORDER+orderNumber;
+	}
+
+	private MemberDTO getMemberByUsername(String username,String authorization) {
+		String memberByUsernameUrl = userByNameMemberUrl + username;//Constants.MEMBER_SERVICE_GET_MEMBER_BY_USERNAME_URL + username;
+		log.info("memberByUsernameUrl : {}", memberByUsernameUrl);
+		MemberDTO memberDTO = null;
+		try {
+			memberServiceProxy.getMemberDetailsByUsername(username);
+//			ResponseEntity<MemberDTO> responseEntity = restTemplate.getForEntity(memberByUsernameUrl, MemberDTO.class);
+			ResponseEntity<MemberDTO> responseEntity = restTemplate.exchange(memberByUsernameUrl, HttpMethod.GET, setHttpHeaders(authorization), MemberDTO.class);
+			memberDTO = responseEntity.getBody();
+			if (memberDTO == null) {
+				log.info("Invalid username to proceed orders : {}", username);
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.INVALID_USERNAME_TO_ORDERS);
+			}
+		} catch (ResourceAccessException resourceAccessException) {
+			log.error("ResourceAccessException on fetching member by username url : {}, exception : {}",
+					memberByUsernameUrl, resourceAccessException);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					Constants.RESOURCE_ACCESS_EXCEPTION_ON_FETCHING_MEMBER_BY_USERNAME);
+		} catch (Exception exception) {
+			log.error("Exception on fetching member by username url : {}, exception : {}", memberByUsernameUrl,
+					exception);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.EXCEPTION_ON_FETCHING_MEMBER_BY_USERNAME);
+		}
+		return memberDTO;
+	}
+
+	private void setOrdersCreatedInfo(Orders orders) {
+		orders.setCreatedBy(
+				StringUtils.isEmpty(orders.getCreatedBy()) ? Constants.DEFAULT_USER_NAME : orders.getCreatedBy());
+		orders.setCreatedTime(HelperUtils.getCurrentTime());
+	}
+
+	@Override
+	public Boolean updateOrder(OrdersDTO ordersDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public MemberDTO getAllOrdersByUsername(String username,String authorization) {
+		MemberDTO memberDTO = getMemberByUsername(username,authorization);
+		Optional<List<Orders>> orders = ordersRepo.findByMemberId(memberDTO.getId());
+		if(orders.isEmpty()) {
+			log.info("No orders found for member id : {}",memberDTO.getId());
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT,Constants.NO_RECORDS_FOR_GIVEN_MEMBER_ID);
+		}
+		Type ordersDTOType = new TypeToken<List<OrdersDTO>>() {}.getType();
+		List<OrdersDTO> ordersList = modelMapper.map(orders.get(),ordersDTOType);
+		log.info("Total number orders for member id : {}",ordersList.size());
+		memberDTO.setOrders(ordersList);
+		return memberDTO;
+	}
+
+	@Override
+	public MemberDTO getOrderByNumber(String orderNumber,String authorization) {
+		if (StringUtils.isEmpty(orderNumber)) {
+			log.info("Invalid order number.");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_ORDER_NUMBER);
+		}
+		Optional<Orders> orders = ordersRepo.findByOrderNumber(orderNumber);
+		if (!orders.isPresent())
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.NO_RECORDS_FOR_GIVEN_ORDER_NUMBER);
+		log.info("Fetch orders by number is present : {}", orderNumber);
+		Member m = orders.get().getMember();
+		MemberDTO memberDTO = getMemberByUsername(orders.get().getMember().getUsername(),authorization);
+		memberDTO.setOrders(Arrays.asList(modelMapper.map(orders.get(), OrdersDTO.class)));
+		return memberDTO;
+	}
+	
+	private HttpEntity<?> setHttpHeaders(String authorization) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", authorization);
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+		return entity;
+	}
+	
+	private String generateOrderNumber() {
+		log.info("order number generation - date-time-random_number");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ORDER_NUMBER_GENERATION_DATE_TIME_FORMATTER);
+		String date = simpleDateFormat.format(new Date()).toString();
+//		Random randomIntGenerator = new Random();
+		String orderNumber = date;// + randomIntGenerator.nextInt();
+		log.info("Random order number : {}",orderNumber);
+		return orderNumber;
+	}
+
+}

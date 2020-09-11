@@ -1,0 +1,7 @@
+spring.application.name=netflix-zuul-api-gateway-server
+server.port=8765
+eureka.client.service-url.default-zone=http://localhost:8761/eureka
+#zuul api gateway props
+#zuul.routes.member-service.path=/tiremgmt/api/member/**
+zuul.routes.member-service.url=http://localhost:9000/tiremgmt/api/member/**
+zuul.routes.vehcile-parts-order-service.url=http://localhost:9001/tiremgmt/api/order/**

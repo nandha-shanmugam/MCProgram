@@ -1,0 +1,21 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.controller;
+
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import com.tiremgmt.membersvc.service.MemberService;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+@RunWith(MockitoJUnitRunner.class)
+public class MemberControllerTest {
+
+	@Mock
+	private MemberService memberService;
+}

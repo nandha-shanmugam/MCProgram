@@ -1,0 +1,5 @@
+package com.tiremgmt.membersvc.serviceImpl;
+
+public class MemberServiceImplTest {
+
+}

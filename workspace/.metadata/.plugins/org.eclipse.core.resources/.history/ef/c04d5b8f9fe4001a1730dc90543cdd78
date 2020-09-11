@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.service;
+
+import com.tiremgmt.membersvc.model.User;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public interface UserService {
+
+	/**
+	 * CReate user with username and password
+	 * @param user
+	 * @return
+	 */
+	String createUser(User user);
+}

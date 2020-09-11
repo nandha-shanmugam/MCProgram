@@ -1,0 +1,62 @@
+/**
+ * 
+ */
+package com.tiremgmt.vehiclepartsordersvc.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tiremgmt.vehiclepartsordersvc.dto.MemberDTO;
+import com.tiremgmt.vehiclepartsordersvc.dto.OrdersDTO;
+import com.tiremgmt.vehiclepartsordersvc.service.OrderService;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+@RestController
+@RequestMapping(name="/api/order")
+public class OrderController implements OrderApi{
+
+	
+	@Autowired
+	private OrderService orderService;
+	
+	@Override
+	@PostMapping("/v1/save")
+	public ResponseEntity<String> saveOrder(@RequestBody OrdersDTO ordersDTO) {
+		return new ResponseEntity<>(orderService.saveOrder(ordersDTO),HttpStatus.OK);
+	}
+
+	@Override
+	@PutMapping("/v1/update")
+	public ResponseEntity<Boolean> updateOrder(OrdersDTO ordersDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@GetMapping("v1/getOrderByNumber/{orderNumber}")
+	public ResponseEntity<MemberDTO> getOrderByNumber(@PathVariable("orderNumber")String orderNumber,@RequestHeader("Authorization") String authorization) {
+		return new ResponseEntity<>(orderService.getOrderByNumber(orderNumber,authorization),HttpStatus.OK);
+	}
+
+	@Override
+	@GetMapping("v1/getAllOrdersByUsername/{username}")
+	public ResponseEntity<MemberDTO> getAllOrdersByUsername(@PathVariable("username")String username) {
+		return new ResponseEntity<>(orderService.getAllOrdersByUsername(username),HttpStatus.OK);
+	}
+	
+	
+	
+
+}

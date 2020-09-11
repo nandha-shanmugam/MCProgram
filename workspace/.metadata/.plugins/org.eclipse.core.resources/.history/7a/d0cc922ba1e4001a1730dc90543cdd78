@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.tiremgmt.tiremgmtcommon.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public interface UserRepo extends JpaRepository<T, ID> {
+
+}

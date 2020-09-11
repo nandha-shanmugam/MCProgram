@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.model;
+
+import java.io.Serializable;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class UserDTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2519212012321994608L;
+	
+	private String username;
+	private String password;
+
+}

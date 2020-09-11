@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.model;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class JwtResponse {
+
+}

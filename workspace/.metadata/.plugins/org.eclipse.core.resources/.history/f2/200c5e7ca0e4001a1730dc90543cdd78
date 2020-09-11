@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.service;
+
+import com.tiremgmt.membersvc.model.User;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+@Component
+public class UserSreviceImpl implements UserService {
+
+	
+	
+	@Override
+	public String createUser(User user) {
+		return null;
+	}
+
+}

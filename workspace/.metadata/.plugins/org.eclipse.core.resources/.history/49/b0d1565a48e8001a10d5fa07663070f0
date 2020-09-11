@@ -1,0 +1,8 @@
+package com.tiremgmt.vehiclepartsordersvc.service;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name = "member-service")
+public interface MemberServcieProxy {
+
+}

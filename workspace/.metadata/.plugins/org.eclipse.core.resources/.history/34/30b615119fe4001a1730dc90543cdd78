@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.service;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class UserController {
+
+}

@@ -1,0 +1,21 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+
+@RestController
+public class TestController {
+
+	@GetMapping("/hi")
+	public String getTestName() {
+		return "hello";
+	}
+}

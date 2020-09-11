@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.config;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class WebSecurityConfig {
+
+}

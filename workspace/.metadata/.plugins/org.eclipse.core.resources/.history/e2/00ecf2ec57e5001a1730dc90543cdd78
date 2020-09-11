@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+package com.tiremgmt.vehiclepartsordersvc.service;
+
+import com.tiremgmt.vehiclepartsordersvc.dto.MemberDTO;
+import com.tiremgmt.vehiclepartsordersvc.dto.OrdersDTO;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public interface OrderService {
+
+	/**
+	 * save order details with member info
+	 * 
+	 * @param ordersDTO
+	 * @return
+	 */
+	String saveOrder(OrdersDTO ordersDTO);
+	
+	/**
+	 * Update order details
+	 * 
+	 * @param ordersDTO
+	 * @return
+	 */
+	Boolean updateOrder(OrdersDTO ordersDTO);
+	
+	/**
+	 * Get order details by order number
+	 * 
+	 * @param orderNumber
+	 * @return
+	 */
+	MemberDTO getOrderByNumber(String orderNumber,String authorization);
+
+	/**
+	 * Get all orders by username
+	 *  
+	 * @param username
+	 * @param authorization
+	 * @return
+	 */
+	MemberDTO getAllOrdersByUsername(String username, String authorization);
+}

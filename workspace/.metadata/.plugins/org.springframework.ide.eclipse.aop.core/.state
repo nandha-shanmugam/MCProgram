@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="vehicle-parts-order-svc"/>
+<aop-project name="test"/>
+<aop-project name="service-registry"/>
+<aop-project name="tiremgmt-common"/>
+<aop-project name="membersvc"/>
+<aop-project name="authentication"/>
+<aop-project name="api-gateway"/>
+</aop-reference-model>

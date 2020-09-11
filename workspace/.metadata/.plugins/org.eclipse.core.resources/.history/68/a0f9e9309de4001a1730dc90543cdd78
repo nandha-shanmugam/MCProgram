@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.model;
+
+import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class UserDTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2519212012321994608L;
+	private String username;
+	private String password;
+
+}

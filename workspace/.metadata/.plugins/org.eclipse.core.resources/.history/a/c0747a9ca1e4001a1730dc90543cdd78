@@ -1,0 +1,16 @@
+/**
+ * 
+ */
+package com.tiremgmt.tiremgmtcommon.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+@Repository
+public interface UserRepo extends JpaRepository<T, ID> {
+
+	Optional<User> findByUsername(String username);
+}

@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.jwtUtils;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+public class BCryptUtils {
+
+}

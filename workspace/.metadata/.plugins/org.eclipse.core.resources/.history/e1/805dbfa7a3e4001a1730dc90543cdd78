@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.tiremgmt.membersvc.service;
+
+/**
+ * @author javacloudmc275
+ *
+ */
+//@FunctionalInterface
+public interface UserService {
+
+	/**
+	 * CReate user with username and password
+	 * @param user
+	 * @return
+	 */
+	String createUserUser user);
+}

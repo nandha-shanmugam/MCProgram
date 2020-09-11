@@ -1,0 +1,18 @@
+package com.tiremgmt.vehiclepartsordersvc.service;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.tiremgmt.tiremgmtcommon.dto.MemberDTO;
+
+@FeignClient(name = "member-service")
+public interface MemberServiceProxy {
+	
+	@GetMapping("/api/member/v1/{id}")
+    public ResponseEntity<MemberDTO> getMemberDetailsByid(@PathVariable("id")Long memberId);
+
+	@GetMapping(value = "/api/member/v1/username/{username}")
+    public ResponseEntity<MemberDTO> getMemberDetailsByUsername(@PathVariable("username")String username);
+}
