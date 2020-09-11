@@ -1,0 +1,115 @@
+//Member service
+
+1. save member
+	1. email, mobile and PAN validation done in server side
+			//invalid - email("ravi_associate.com")
+			//valid - ravi.shankar56@cognizant.com
+				{
+				  "username": "Ravi",
+				  "address": "97, Raman street, Pudukootai - 639 098",
+				  "state": "Tamilnadu",
+				  "country": "India",
+				  "email": "ravi_associate.com",
+				  "pan": "AZZXC4299F",
+				  "contact": "9095809271",
+				  "dob": "04-10-1988",
+				  "createdBy": "Ravi"
+				}
+			
+			//Invalid phone - 5095809271
+			//valid phone - 7095809271
+			//invalid PAN - AZZXCS299F
+			//Valid PAN - AZZXC7299F
+			
+	2. New user can't register with existing username(Username already exists.)
+	
+		{
+		  "username": "Sanjnu",
+		  "address": "59, Raja street, Cochin - 638 187",
+		  "state": "Tamilnadu",
+		  "country": "India",
+		  "email": "sanju_associate@cognizant.com",
+		  "pan": "AZZXC9876C",
+		  "contact": "9867540000",
+		  "dob": "04-10-1980",
+		  "createdBy": "Sanju",
+		  "createdTime": "2020-08-19T08:08:47.781+00:00",
+		  "updatedBy": "Admin",
+		  "updatedTime": "2020-08-19T08:08:47.781+00:00",
+		  "vehicleList": [
+			{
+			  "name": "Pulsar",
+			  "type": "two wheeler",
+			  "model": 2018,
+			  "vin": "123456789096786543",
+			  "createdBy": "Admin",
+			  "updatedBy": "Admin"
+			}
+		  ]
+	}
+
+	3. One user can have multiple vehicles.
+		{
+		  "username": "Ravi",
+		  "address": "97, Raman street, Pudukootai - 639 098",
+		  "state": "Tamilnadu",
+		  "country": "India",
+		  "email": "ravi_associate@cognizant.com",
+		  "pan": "AZZXC4299F",
+		  "contact": "9095809271",
+		  "dob": "04-10-1988",
+		  "createdBy": "Ravi",
+		  "vehicleList": [
+			{
+			  "name": "Apache",
+			  "type" : "two wheeler",
+			  "model": 2009,
+			  "vin": "123456789098712345"
+			},
+			{
+			  "name": "Skoda",
+			  "type" : "four wheeler",
+			  "model": 2019,
+			  "vin": "987654321098712345"
+			}
+		  ]
+		}
+	
+2. update member
+3. Get member by username - Nandha,Ramesh,Sanju
+4. Get member by id - 1,2,6
+5. Validate username by check whether name already exists or not - Nandha -> already exists exception , Selva - true	
+	
+//Order
+1. Save order
+	1. Save only existing username's order
+		
+		//vehicle device - save orders
+		
+		{
+		  "createdBy": "Nandha",
+		  "itemName": "Wiper",
+		  "itemType": "Cleaner",
+		  "quantity": 1,
+		  "servicesRequired": "water wash, air check and break",
+		  "username": "Nandha"
+		}
+
+
+		//Invalid usernme(not existing) to orders
+
+		{
+		  "createdBy": "Siva",
+		  "itemName": "Battery",
+		  "itemType": "Charging",
+		  "quantity": 2,
+		  "servicesRequired": "battery backup increase",
+		  "username": "Siva"
+		}
+	
+	
+	2. Random number gerneartion logic used for order number with the combination of date and time
+	
+2. Find order by order number along with member info - 180820211513
+3. Find all orders by username along with member info - Nandha
+	

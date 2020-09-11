@@ -5,7 +5,7 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2020-09-10T23:06:49Z</updated>
+  <updated>2020-09-10T23:06:00Z</updated>
   <entry>
     <title>A Bootiful Podcast: Legendary Spring contributor Rossen Stoyanchev on all things web, reactive and RSocket</title>
     <link rel="alternate" href="https://spring.io/blog/2020/09/10/a-bootiful-podcast-legendary-spring-contributor-rossen-stoyanchev-on-all-things-web-reactive-and-rsocket" />
@@ -14,8 +14,8 @@
       <name>Josh Long</name>
     </author>
     <id>tag:spring.io,2020-09-10:4194</id>
-    <updated>2020-09-10T23:06:49Z</updated>
-    <content type="html">&lt;p&gt;Hi, Spring fans! In this installment of a &lt;em&gt;Bootiful Podcast&lt;/em&gt;, &lt;a href="http://twitter.com/starbuxman"&gt;Josh Long (@starbuxman)&lt;/a&gt; talks about the week that was, his new book &lt;a href="http://ReactiveSpring.io"&gt;&amp;ldquo;Reactive Spring,&amp;rdquo;&lt;/a&gt; and then talks to one of the most senior engineers on the Spring team and a longtime contributor to all things web and reactive - &lt;a href="http://twitter.com/rstoya08"&gt;Rossen Stoyanchev (@rstoya08)&lt;/a&gt;.&lt;/p&gt;
+    <updated>2020-09-10T23:06:00Z</updated>
+    <content type="html">&lt;p&gt;Hi, Spring fans! In this installment of a &lt;em&gt;Bootiful Podcast&lt;/em&gt;, &lt;a href="http://twitter.com/starbuxman"&gt;Josh Long (@starbuxman)&lt;/a&gt; talks about the week that was, his new book &lt;a href="http://ReactiveSpring.io"&gt;&amp;ldquo;Reactive Spring,&amp;rdquo;&lt;/a&gt; and then talks to one of the most senior engineers on the Spring team and a longtime contributor to all things web and reactive - &lt;a href="http://twitter.com/rstoya05"&gt;Rossen Stoyanchev (@rstoya05)&lt;/a&gt;.&lt;/p&gt;
 &lt;iframe title="Legendary Spring contributor Rossen Stoyanchev on all things web, reactive and RSocket " height="122" width="100%" style="border: none;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/media/player/zisid-eb15e0?from=pb6admin&amp;download=1&amp;version=1&amp;auto=0&amp;share=1&amp;download=1&amp;rtl=0&amp;fonts=Helvetica&amp;skin=1&amp;pfauth=&amp;btn-skin=107"&gt;&lt;/iframe&gt;
 &lt;!-- rendered by Sagan Renderer Service --&gt;</content>
   </entry>

@@ -1,0 +1,75 @@
+{
+  "username": "Ramesh",
+  "address": "57, Raja street, Erode - 638 187",
+  "state": "Tamilnadu",
+  "country": "India",
+  "email": "ramesh_associate@cognizant.com",
+  "pan": "AZZXC9876V",
+  "contact": "9867543215",
+  "dob": "04-10-1990",
+  "createdBy": "Ramesh",
+  "vehicleList": [
+    {
+      "name": "RX100",
+	  "type" : "two wheeler",
+      "model": 1999,
+      "vin": "123456789098765432"
+    }
+  ]
+}
+
+//Update member ifo
+
+{
+  "id": 2,
+  "username": "Ramesh",
+  "address": "57, Valluvar street, Erode - 638 052",
+  "state": "Tamilnadu",
+  "country": "India",
+  "email": "ramesh_associate_infra@cognizant.com",
+  "pan": "AZZXC9876V",
+  "contact": "9867543215",
+  "dob": "04-10-1990",
+  "createdBy": "Ramesh",
+  "updatedBy": "Ramesh",
+  "vehicleList": [
+    {
+      "id": 3,
+      "name": "RX125",
+      "type" : "two wheeler",
+      "model": 1998,
+      "vin": "123456789098765442"
+    }
+  ]
+}
+
+
+//Input 2
+
+{
+  "username": "Ravi",
+  "address": "97, Raman street, Pudukootai - 639 098",
+  "state": "Tamilnadu",
+  "country": "India",
+  "email": "ravi_associate@cognizant.com",
+  "pan": "AZZXC4299F",
+  "contact": "9095809271",
+  "dob": "04-10-1988",
+  "createdBy": "Ravi",
+  "vehicleList": [
+    {
+      "name": "Apache",
+	  "type" : "two wheeler",
+      "model": 2009,
+      "vin": "123456789098712345"
+    },
+	{
+      "name": "Skoda",
+	  "type" : "four wheeler",
+      "model": 2019,
+      "vin": "987654321098712345"
+    }
+  ]
+}
+
+//Update member info
